@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.DSIMapper">
+
+    <resultMap type="DeviceStaticInformation" id="DSIAllInfo">
+        <result property="SIMId" column="SIMId"/>
+        <result property="iotDeviceId" column="iotDeviceId"/>
+        <result property="RFId" column="RFId"/>
+        <result property="projectInformation" column="projectInformation"/>
+        <result property="numberPlate" column="numberPlate"/>
+        <result property="engineNumber" column="engineNumber"/>
+        <result property="inControl" column="inControl"/>
+        <result property="startDate" column="startDate"/>
+        <result property="temp" column="temp"/>
+    </resultMap>
+
+    <insert id="add" parameterType="DeviceStaticInformation">
+        INSERT INTO t_dsi(
+        SIMId, iotDeviceId,
+        RFId,projectInformation,
+        numberPlate,engineNumber,
+        inControl,startDate,
+        temp
+        )
+        VALUES          (
+        #{SIMId}, #{iotDeviceId},
+        #{RFId},#{projectInformation},
+        #{numberPlate},#{engineNumber},
+        #{inControl},#{startDate},
+        #{temp}
+        )
+    </insert>
+
+    <update id="update" parameterType="map" statementType="STATEMENT">
+        <![CDATA[
+               UPDATE t_dsi SET ${field} = ${val} WHERE iotDeviceId = ${iotDeviceId}
+
+     ]]>
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM t_dsi WHERE iotDeviceId=#{iotDeviceId}
+    </delete>
+
+    <select id="findAll" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi
+    </select>
+
+    <select id="findByIotDeviceId" parameterType="String" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE iotDeviceId=#{iotDeviceId}
+    </select>
+
+    <select id="findBySIMId" parameterType="String" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE SIMId=#{SIMId}
+    </select>
+
+    <select id="findByRFId" parameterType="String" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE RFId=#{RFId}
+    </select>
+
+    <select id="findByProjectInformation" parameterType="String" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE projectInformation=#{projectInformation}
+    </select>
+
+    <select id="findByEngineNumber" parameterType="String" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE engineNumber=#{engineNumber}
+    </select>
+
+    <select id="findByInControl" parameterType="Boolean" resultMap="DSIAllInfo">
+        SELECT * FROM t_dsi WHERE inControl=#{inControl}
+    </select>
+
+</mapper>

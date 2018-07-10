@@ -1,0 +1,7 @@
+A client has connected atWed Mar 21 01:56:43 CST 2018
+accept:<command><user_id>000</user_id><passwd>designhouse</passwd><content>QUERYINSTANTDATE</content><id>2</id><time>empty</time><date>2017-12-23</date></command>   at:Wed Mar 21 01:56:43 CST 2018
+message:<protocol><file type = "tota" id = "1" content = "1.000" date = "2017-12-23" time = "23:12:55" /></protocol>
+message:<protocol><file type = "tota" id = "1" content = "0.000" date = "2017-12-23" time = "23:17:55" /></protocol>
+message:<protocol><file type = "tota" id = "1" content = "0.000" date = "2017-12-23" time = "23:22:55" /></protocol>
+message:<protocol><file type = "tota" id = "1" content = "0.000" date = "2017-12-23" time = "23:27:55" /></protocol>
+A client has disconnectedWed Mar 21 01:56:46 CST 2018

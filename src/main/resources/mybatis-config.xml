@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+
+  <properties resource="jdbc.properties" />
+  
+    <typeAliases>
+      <typeAlias alias="User" type="com.cxgc.Database.model.User"/>
+  	  <typeAlias alias="DeviceStaticInformation" type="com.cxgc.Database.model.DeviceStaticInformation"/>
+      <typeAlias alias="DeviceDynamicInformation" type="com.cxgc.Database.model.DeviceDynamicInformation"/>
+      <typeAlias alias="ProjectDepartmentInformation" type="com.cxgc.Database.model.ProjectDepartmentInformation"/>
+      <typeAlias alias="StaticInformation" type="com.cxgc.Database.model.StaticInformation"/>
+      <typeAlias alias="InspectorInformation" type="com.cxgc.Database.model.InspectorInformation"/>
+      <typeAlias alias="StaticInformationMaterial" type="com.cxgc.Database.model.StaticInformationMaterial"/>
+	</typeAliases>
+  
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="poolMaximumIdleConnections" value="0"/>
+        <property name="poolMaximumActiveConnections" value="1000"/>
+        <property name="poolPingQuery" value="SELECT 1 FROM DUAL" />
+        <property name="poolPingEnabled" value="true" />
+
+      </dataSource>
+    </environment>
+  </environments>
+
+
+   <mappers>
+     <mapper resource="UserMapper.xml"/>
+     <mapper resource="DSIMapper.xml"/>
+     <mapper resource="DDIMapper.xml"/>
+     <mapper resource="PDIMapper.xml"/>
+     <mapper resource="SIMapper.xml"/>
+     <mapper resource="IIMapper.xml"/>
+     <mapper resource="SIMMapper.xml"/>
+  </mappers>
+
+</configuration>

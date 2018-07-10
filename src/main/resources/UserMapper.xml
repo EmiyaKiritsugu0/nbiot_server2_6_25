@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.UserMapper">
+
+    <resultMap type="User" id="UserAllInfo">
+        <result property="userAccountName" column="userAccountName"/>
+        <result property="userActualName" column="userActualName"/>
+        <result property="userJobNumber" column="userJobNumber"/>
+        <result property="userPassword" column="userPassword"/>
+        <result property="userPriorityLevel" column="userPriorityLevel"/>
+        <result property="userSex" column="userSex"/>
+        <result property="userPosition" column="userPosition"/>
+        <result property="userCompany" column="userCompany"/>
+        <result property="userId" column="userId"/>
+        <result property="userEmail" column="userEmail"/>
+        <result property="userProject" column="userProject"/>
+    </resultMap>
+
+    <insert id="add" parameterType="User">
+        INSERT INTO t_user(
+                           userAccountName, userActualName,
+                           userJobNumber,userPassword,
+                           userPriorityLevel,userSex,
+                           userPosition,userCompany,
+                           userId,userEmail,userProject
+                           )
+              VALUES      (
+                           #{userAccountName}, #{userActualName},
+                           #{userJobNumber},#{userPassword},
+                           #{userPriorityLevel},#{userSex},
+                           #{userPosition},#{userCompany},
+                           #{userId},#{userEmail},#{userProject}
+                           )
+    </insert>
+    <update id="update" parameterType="map" statementType="STATEMENT">
+     <![CDATA[
+               UPDATE t_user SET ${field} = ${val} WHERE userJobNumber = ${userJobNumber}
+
+     ]]>
+    </update>
+
+    <select id="findByJobNumber" parameterType="String" resultMap="UserAllInfo">
+        SELECT * FROM t_user WHERE userJobNumber=#{userJobNumber}
+    </select>
+
+    <select id="findAll" resultMap="UserAllInfo">
+        SELECT * FROM t_user
+    </select>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM t_user WHERE userJobNumber=#{userJobNumber}
+    </delete>
+
+    <select id="findByAccountName" parameterType="String" resultMap="UserAllInfo">
+        SELECT * FROM t_user WHERE userAccountName=#{userAccountName}
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="UserAllInfo">
+        SELECT * FROM t_user WHERE userId=#{userId}
+    </select>
+
+</mapper>

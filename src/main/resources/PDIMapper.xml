@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.PDIMapper">
+
+    <resultMap type="ProjectDepartmentInformation" id="PDIAllInfo">
+        <result property="projectName" column="projectName"/>
+        <result property="projectProvince" column="projectProvince"/>
+        <result property="projectCity" column="projectCity"/>
+        <result property="projectState" column="projectState"/>
+        <result property="projectDetail" column="projectDetail"/>
+        <result property="projectStartDate" column="projectStartDate"/>
+        <result property="projectEndDate" column="projectEndDate"/>
+        <result property="projectStaffAmount" column="projectStaffAmount"/>
+        <result property="projectDeviceTypeAmount" column="projectDeviceTypeAmount"/>
+    </resultMap>
+
+
+
+    <insert id="add" parameterType="DeviceStaticInformation">
+        INSERT INTO t_pdi(
+        projectName, projectProvince,
+        projectCity,projectState,
+        projectDetail,projectStartDate,
+        projectEndDate,projectStaffAmount,
+        projectDeviceTypeAmount
+        )
+        VALUES          (
+        #{projectName}, #{projectProvince},
+        #{projectCity},#{projectState},
+        #{projectDetail},#{projectStartDate},
+        #{projectEndDate},#{projectStaffAmount},
+        #{projectDeviceTypeAmount}
+        )
+    </insert>
+
+    <update id="update" parameterType="map" statementType="STATEMENT">
+        <![CDATA[
+               UPDATE t_pdi SET ${field} = ${val} WHERE projectName = ${projectName}
+
+     ]]>
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+    DELETE FROM t_pdi WHERE projectName=#{projectName}
+   </delete>
+
+    <select id="findByProjectName" parameterType="String" resultMap="PDIAllInfo">
+        SELECT * FROM t_pdi WHERE projectName=#{projectName}
+    </select>
+
+    <select id="findByProjectProvince" parameterType="String" resultMap="PDIAllInfo">
+        SELECT * FROM t_pdi WHERE projectProvince=#{projectProvince}
+    </select>
+
+    <select id="findByProjectCity" parameterType="String" resultMap="PDIAllInfo">
+        SELECT * FROM t_pdi WHERE projectCity=#{projectCity}
+    </select>
+
+
+</mapper>

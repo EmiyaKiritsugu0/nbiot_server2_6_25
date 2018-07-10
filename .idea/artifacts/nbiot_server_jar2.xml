@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="nbiot_server:jar2">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="nbiot_server.jar">
+      <element id="module-output" name="nbiot_server" />
+      <element id="extracted-dir" path="D:/mavenrepositpry/io/netty/netty-all/4.1.22.Final/netty-all-4.1.22.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/mavenrepositpry/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/mavenrepositpry/org/mybatis/mybatis/3.2.8/mybatis-3.2.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/mavenrepositpry/mysql/mysql-connector-java/5.1.42/mysql-connector-java-5.1.42.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/mavenrepositpry/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+      <element id="library" level="project" name="Maven: io.netty:netty-all:4.1.22.Final" />
+      <element id="library" level="project" name="Maven: junit:junit:3.8.1" />
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.42" />
+      <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.8" />
+      <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+      <element id="library" level="application" name="Dve2003Client (2)" />
+      <element id="library" level="application" name="java3d" />
+      <element id="library" level="application" name="mysql-connector-java-5.1.44-bin" />
+    </root>
+  </artifact>
+</component>

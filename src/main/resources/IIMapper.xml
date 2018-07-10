@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.IIMapper">
+
+    <resultMap type="InspectorInformation" id="IIAllInfo">
+        <result property="iotDeviceId" column="iotDeviceId"/>
+        <result property="informationDate" column="informationDate"/>
+        <result property="informationTime" column="informationTime"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="positionException" column="positionException"/>
+        <result property="fuelException" column="fuelException"/>
+        <result property="rotationException" column="rotationException"/>
+    </resultMap>
+
+    <insert id="add" parameterType="InspectorInformation">
+        INSERT INTO t_ii(
+        iotDeviceId, informationDate,
+        informationTime,longitude,
+        latitude,positionException,
+        fuelException,rotationException
+        )
+        VALUES          (
+        #{iotDeviceId}, #{informationDate},
+        #{informationTime},#{longitude},
+        #{latitude},#{positionException},
+        #{fuelException},#{rotationException}
+        )
+    </insert>
+
+    <select id="findByIdAndHour" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0} and informationDate = #{1} and informationTime >= #{2} and informationTime <= #{3}
+        ]]>
+    </select>
+
+    <select id="findByIdAndDate" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0}  and informationDate >= #{1} and informationDate <= #{2}
+        ]]>
+    </select>
+
+    <select id="findByIdAndParticularDate" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0} and informationDate = #{1}
+        ]]>
+    </select>
+
+    <select id="findByIdAndDateAndHour" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0}  and   informationDate >= #{1}
+                  and informationDate <= #{2} and informationTime >= #{3} and informationTime <= #{4}
+        ]]>
+    </select>
+
+    <select id="findByHour" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate = #{0} and informationTime >= #{1} and informationTime <= #{2}
+        ]]>
+    </select>
+
+    <select id="findByDate" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate >= #{0} and informationDate <= #{1}
+        ]]>
+    </select>
+
+    <select id="findByParticularDate" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate = #{0}
+        ]]>
+    </select>
+
+    <select id="findByDateAndHour" resultMap="IIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where   informationDate >= #{0}
+                  and informationDate <= #{1} and informationTime >= #{2} and informationTime <= #{3}
+        ]]>
+    </select>
+
+    <select id="findLatest" parameterType="java.lang.String" resultMap="IIAllInfo">
+        <![CDATA[
+                 select * from ( select * from t_ddi
+                 where informationDate in (
+                select max(informationDate)  from t_ddi WHERE iotDeviceId = #{0}  ) and iotDeviceId = #{0}) as a
+                 where informationTime in ( select max(informationTime)
+                 from  ( select * from t_ddi
+                 where informationDate = (
+                 select max(informationDate)  from t_ddi WHERE iotDeviceId = #{0} ) and iotDeviceId = #{0} ) as b)
+        ]]>
+    </select>
+
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.DDIMapper">
+
+    <resultMap type="DeviceDynamicInformation" id="DDIAllInfo">
+        <result property="angularXSpeed" column="angularXSpeed"/>
+        <result property="angularYSpeed" column="angularYSpeed"/>
+        <result property="angularZSpeed" column="angularZSpeed"/>
+        <!--<result property="angularXAcceleration" column="angularXAcceleration"/>-->
+        <!--<result property="angularYAcceleration" column="angularYAcceleration"/>-->
+        <!--<result property="angularZAcceleration" column="angularZAcceleration"/>-->
+        <result property="angleX" column="angleX"/>
+        <result property="angleY" column="angleY"/>
+        <result property="angleZ" column="angleZ"/>
+        <result property="currentSpeed" column="currentSpeed"/>
+        <result property="xAcceleration" column="xAcceleration"/>
+        <result property="yAcceleration" column="yAcceleration"/>
+        <result property="zAcceleration" column="zAcceleration"/>
+        <result property="containingFuel" column="containingFuel"/>
+        <result property="containingElectricity" column="containingElectricity"/>
+        <result property="informationDate" column="informationDate"/>
+        <result property="informationTime" column="informationTime"/>
+        <result property="rotationOrientation" column="rotationOrientation"/>
+        <result property="workingFlag" column="workingFlag"/>
+        <result property="iotDeviceId" column="iotDeviceId"/>
+        <result property="GPSInformation" column="GPSInformation"/>
+        <result property="deltaDistanceSum" column="deltaDistanceSum"/>
+        <result property="deltaFuel" column="deltaFuel"/>
+    </resultMap>
+
+    <insert id="add" parameterType="DeviceDynamicInformation">
+        INSERT INTO t_ddi(
+        angularXSpeed, angularYSpeed,
+        angularZSpeed,angleX,
+        angleY,angleZ,
+        currentSpeed,xAcceleration,
+        yAcceleration,zAcceleration,
+        containingFuel,containingElectricity,
+        informationDate,informationTime,
+        rotationOrientation,workingFlag,
+        iotDeviceId,GPSInformation,
+        deltaDistanceSum,deltaFuel
+        )
+        VALUES          (
+        #{angularXSpeed}, #{angularYSpeed},
+        #{angularZSpeed},#{angleX},
+        #{angleY},#{angleZ},
+        #{currentSpeed},#{xAcceleration},
+        #{yAcceleration},#{zAcceleration},
+        #{containingFuel},#{containingElectricity},
+        #{informationDate},#{informationTime},
+        #{rotationOrientation},#{workingFlag},
+        #{iotDeviceId},#{GPSInformation},
+        #{deltaDistanceSum},#{deltaFuel}
+        )
+    </insert>
+
+    <select id="findByIdAndHour" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0} and informationDate = #{1} and informationTime >= #{2} and informationTime <= #{3}
+        ]]>
+    </select>
+
+    <select id="findByIdAndDate" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0}  and informationDate >= #{1} and informationDate <= #{2}
+        ]]>
+    </select>
+
+    <select id="findByIdAndParticularDate" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0} and informationDate = #{1}
+        ]]>
+    </select>
+
+    <select id="findByIdAndDateAndHour" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where iotDeviceId = #{0}  and   informationDate >= #{1}
+                  and informationDate <= #{2} and informationTime >= #{3} and informationTime <= #{4}
+        ]]>
+    </select>
+
+    <select id="findByHour" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate = #{0} and informationTime >= #{1} and informationTime <= #{2}
+        ]]>
+    </select>
+
+    <select id="findByDate" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate >= #{0} and informationDate <= #{1}
+        ]]>
+    </select>
+
+    <select id="findByParticularDate" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where informationDate = #{0}
+        ]]>
+    </select>
+
+    <select id="findByDateAndHour" resultMap="DDIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_ddi where   informationDate >= #{0}
+                  and informationDate <= #{1} and informationTime >= #{2} and informationTime <= #{3}
+        ]]>
+    </select>
+
+    <select id="findLatest" parameterType="java.lang.String" resultMap="DDIAllInfo">
+        <![CDATA[
+                 select * from t_ddi where iotDeviceId = #{0} order by informationDate desc,informationTime desc limit 1
+        ]]>
+    </select>
+
+    <select id="findLatestByNum" resultMap="DDIAllInfo">
+        <![CDATA[
+                select * from t_ddi where iotDeviceId = #{0} order by informationDate desc, informationTime desc limit #{1}
+        ]]>
+    </select>
+
+</mapper>

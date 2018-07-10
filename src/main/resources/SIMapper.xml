@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.Database.mapper.SIMapper">
+
+    <resultMap type="StaticInformation" id="SIAllInfo">
+        <result property="iotDeviceId" column="iotDeviceId"/>
+        <result property="currentDate" column="currentDate"/>
+        <result property="dailyFuelCost" column="dailyFuelCost"/>
+        <result property="dailyDistance" column="dailyDistance"/>
+        <result property="dailyRunTime" column="dailyRunTime"/>
+        <result property="dailyUsingRate" column="dailyUsingRate"/>
+    </resultMap>
+
+
+    <select id="findByIdAndParticularDate" resultMap="SIAllInfo">
+        <![CDATA[
+                  SELECT * FROM t_si where iotDeviceId = #{0} and currentDate = #{1}
+        ]]>
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="SIAllInfo">
+        SELECT * FROM t_si WHERE iotDeviceId=#{iotDeviceId}
+    </select>
+
+    <select id="findByParticularDate" parameterType="java.sql.Date" resultMap="SIAllInfo">
+        SELECT * FROM t_si WHERE currentDate=#{currentDate}
+    </select>
+
+    <update id="updateDailyFuelCost"  >
+        <![CDATA[
+               UPDATE t_si SET dailyFuelCost = #{2} WHERE iotDeviceId = #{0} and currentDate = #{1}
+
+     ]]>
+    </update>
+
+    <update id="updateDailyDistance"  >
+        <![CDATA[
+               UPDATE t_si SET dailyDistance = #{2} WHERE iotDeviceId = #{0}  and currentDate = #{1}
+
+     ]]>
+    </update>
+
+    <update id="updateDailyRunTime"  >
+        <![CDATA[
+               UPDATE t_si SET dailyRunTime = #{2} WHERE iotDeviceId = #{0}  and currentDate = #{1}
+
+     ]]>
+    </update>
+
+    <update id="updateDailyUsingRate"  >
+        <![CDATA[
+               UPDATE t_si SET dailyUsingRate = #{2} WHERE iotDeviceId = #{0}  and currentDate = #{1}
+
+     ]]>
+    </update>
+
+    <insert id="add" parameterType="StaticInformation">
+        INSERT INTO t_si(
+        iotDeviceId, currentDate,
+        dailyFuelCost,dailyDistance,
+        dailyRunTime,dailyUsingRate
+        )
+        VALUES          (
+        #{iotDeviceId}, #{currentDate},
+        #{dailyFuelCost},#{dailyDistance},
+        #{dailyRunTime},#{dailyUsingRate}
+        )
+    </insert>
+
+
+</mapper>
