@@ -75,6 +75,7 @@ public class DataSummarizeZHB {
         System.out.println(" ");*/
 
         if(decreasCounter > 15){
+
             System.out.println("DataSummarizeZHB:" + "偷油！" + "ID" + dataMaterialZHB.getIotDeviceId() + "时间：" + dataMaterialZHB.getDate() + "发现日期：" + new Date());
         }
 
@@ -113,8 +114,8 @@ public class DataSummarizeZHB {
             e.printStackTrace();
         }
 
-        if(dataMaterialZHB.getWorkingFlag() == true){
-            resultUsingRate = 10 / (24 * 60 * 60);
+        if(dataMaterialZHB.getWorkingFlag()){
+            resultUsingRate = iotConstant.resultUsingRate;
         }else {
             resultUsingRate = 0;
         }
@@ -128,44 +129,21 @@ public class DataSummarizeZHB {
                     new java.sql.Date(dataMaterialZHB.getDate().getTime()), deltaFuel + queryFuel);
             new SIDao().updateDailyDistance(dataMaterialZHB.getIotDeviceId(),
                     new java.sql.Date(dataMaterialZHB.getDate().getTime()), dataMaterialZHB.getDeltaDistance() + queryDistance);
-            new SIDao().updateDailyRunTime(dataMaterialZHB.getIotDeviceId(),
-                    new java.sql.Date(dataMaterialZHB.getDate().getTime()), new java.sql.Time(getRunTime(dataMaterialZHB.getWorkingFlag()).getTime() + queryFlag.getTime() + iotConstant.jetLag));
+
+            //如果workingFlag不为true，则无须更新
+            if(dataMaterialZHB.getWorkingFlag()){
+                new SIDao().updateDailyRunTime(dataMaterialZHB.getIotDeviceId(),
+                        new java.sql.Date(dataMaterialZHB.getDate().getTime())
+                        , new java.sql.Time(iotConstant.timeInterval + queryFlag.getTime() + iotConstant.jetLag));
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static java.sql.Time getRunTime(boolean workingFlag){
-        if (workingFlag){
-            return new java.sql.Time(DaoUtil.strToTime("00:00:00").getTime() + (long)1 * 1000 * 10);
-        }else{
-            return new java.sql.Time(DaoUtil.strToTime("00:00:00").getTime() + (long)0 * 1000 * 10);
-        }
 
-    }
 
-    /*
-    白天找何睿讨论这个函数，写的太傻了。
 
-     */
-    private double getUsingRate(java.sql.Time time){
-
-        String sDt1 = "01/01/2018" + " "+time;
-        String sDt2 = "01/01/2018" + " "+"23:59:59";
-        String sDt3 = "01/01/2018" + " "+"00:00:00";
-        double rate = 0;
-        SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        try {
-            Date dt1 = sdf.parse(sDt1);
-            Date dt2 = sdf.parse(sDt2);
-            Date dt3 = sdf.parse(sDt3);
-
-            rate = (double)(dt1.getTime() - dt3.getTime()) / (double)(dt2.getTime() - dt3.getTime());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return  rate;
-    }
 }

@@ -31,6 +31,10 @@ public class iotConstant {
     public static final double speedLimit = 8;
 
     public static final long jetLag = 28800000;
+
+    public static final double resultUsingRate = 1.1574074074074075E-4;
+    public static final int timeInterval = 10000;
+
     public static void checkResult(DeviceDynamicInformation deviceDynamicInfo){
        /* System.out.println("anglex"+deviceDynamicInfo.getAngleX());
         System.out.println("angley"+deviceDynamicInfo.getAngleY());
